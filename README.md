@@ -73,4 +73,3 @@ node --test scheduler.test.js
 ```
 
 The checks cover the fixed grid, break/recess, lab pairs, theory placement, and input validation.
-

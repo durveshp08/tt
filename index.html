@@ -1,0 +1,120 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <meta name="theme-color" content="#111111" />
+    <meta name="description" content="A free, private, rule-based weekly timetable planner for faculty." />
+    <link rel="manifest" href="manifest.webmanifest" />
+    <link rel="icon" href="icon.svg" type="image/svg+xml" />
+    <link rel="stylesheet" href="styles.css" />
+    <title>Faculty Timetable Helper</title>
+  </head>
+  <body>
+    <header class="site-header">
+      <div class="header-inner">
+        <p class="eyebrow">TY SPPU Computer Engineering · AI Lab Mini Project</p>
+        <h1>Faculty Timetable Helper</h1>
+        <p class="subtitle">A simple, explainable weekly scheduler. Your information stays on this device.</p>
+      </div>
+    </header>
+
+    <main class="page-shell">
+      <noscript><p class="notice error">Please enable JavaScript to use the timetable generator.</p></noscript>
+
+      <section class="intro-card" aria-labelledby="start-heading">
+        <h2 id="start-heading">Create a timetable in three small steps</h2>
+        <ol class="steps">
+          <li>Add theory subjects and their lectures per week.</li>
+          <li>Add lab subjects and their two-hour sessions per week.</li>
+          <li>Select <strong>Generate timetable</strong>. Use <strong>Refresh arrangement</strong> for another fair layout.</li>
+        </ol>
+        <button class="text-button" id="load-example" type="button">Load a sample to understand</button>
+      </section>
+
+      <section class="planner" aria-label="Timetable details">
+        <div class="subject-card theory-card">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Step 1</p>
+              <h2>Theory subjects</h2>
+            </div>
+            <button class="secondary-button" id="add-theory" type="button">+ Add subject</button>
+          </div>
+          <p class="hint">Frequency means lectures each week. Example: AI — 3.</p>
+          <div id="theory-list" class="subject-list" aria-live="polite"></div>
+        </div>
+
+        <div class="subject-card lab-card">
+          <div class="section-heading">
+            <div>
+              <p class="section-kicker">Step 2</p>
+              <h2>Lab subjects</h2>
+            </div>
+            <button class="secondary-button" id="add-lab" type="button">+ Add lab</button>
+          </div>
+          <p class="hint">Each lab session occupies two consecutive lecture periods. Example: AIL — 2.</p>
+          <div id="lab-list" class="subject-list" aria-live="polite"></div>
+        </div>
+      </section>
+
+      <section class="generate-panel" aria-label="Generate timetable">
+        <div>
+          <p class="section-kicker">Step 3</p>
+          <h2>Ready to plan?</h2>
+          <p>Lab blocks are placed first. Theory sessions then fill free periods while avoiding repeated theory subjects on the same day whenever possible.</p>
+        </div>
+        <button class="primary-button" id="generate" type="button">Generate timetable</button>
+      </section>
+
+      <section id="result-section" class="result-section" aria-labelledby="timetable-heading" hidden>
+        <div class="result-heading">
+          <div>
+            <p class="section-kicker">Your result</p>
+            <h2 id="timetable-heading">Weekly timetable</h2>
+            <p id="result-summary" class="hint"></p>
+          </div>
+          <div class="result-actions">
+            <button class="secondary-button" id="refresh" type="button">Refresh arrangement</button>
+            <button class="secondary-button" id="copy" type="button">Copy timetable</button>
+            <button class="secondary-button" id="print" type="button">Save / print</button>
+          </div>
+        </div>
+        <div id="warnings" aria-live="polite"></div>
+        <div class="legend" aria-label="Timetable legend">
+          <span><i class="legend-swatch theory-swatch"></i>Theory</span>
+          <span><i class="legend-swatch lab-swatch"></i>Lab (two periods)</span>
+          <span><i class="legend-swatch pause-swatch"></i>Recess / break</span>
+          <span><i class="legend-swatch free-swatch"></i>Free</span>
+        </div>
+        <div class="table-scroll" tabindex="0">
+          <table id="timetable-table">
+            <caption class="sr-only">Generated weekly faculty timetable</caption>
+          </table>
+        </div>
+      </section>
+
+      <section class="rules-card" aria-labelledby="rules-heading">
+        <h2 id="rules-heading">How this recommendation works</h2>
+        <p>This is rule-based assistance, not a black box. It follows the same easy-to-check logic each time:</p>
+        <ul>
+          <li>Five working days: Monday to Friday.</li>
+          <li>Fixed lecture, recess, and break times.</li>
+          <li>Labs receive a consecutive two-period block before theory is assigned.</li>
+          <li>Theory subjects rotate and are spread across days where possible.</li>
+          <li>Refresh changes the starting order only; it never adds hidden rules.</li>
+        </ul>
+      </section>
+    </main>
+
+    <footer>Free to use · Works offline after the first visit · No login · No advertisements</footer>
+    <template id="subject-row-template">
+      <div class="subject-row">
+        <label><span>Subject name</span><input class="subject-name" type="text" maxlength="30" placeholder="Example: AI" autocomplete="off" /></label>
+        <label><span>Sessions / week</span><input class="subject-frequency" type="number" min="1" max="30" step="1" value="1" inputmode="numeric" /></label>
+        <button class="remove-button" type="button" aria-label="Remove subject">Remove</button>
+      </div>
+    </template>
+    <script type="module" src="app.js"></script>
+  </body>
+</html>
