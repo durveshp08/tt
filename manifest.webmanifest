@@ -1,6 +1,7 @@
 {
   "name": "Faculty Timetable Helper",
   "short_name": "Timetable",
+  "lang": "en",
   "description": "Free, private, rule-based weekly faculty timetable planner.",
   "start_url": "./",
   "display": "standalone",
@@ -10,3 +11,4 @@
     { "src": "icon.svg", "sizes": "any", "type": "image/svg+xml", "purpose": "any maskable" }
   ]
 }
+
